@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cold Drinks Detection Tool</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <style>
+      .header{
+        
+        color: rgb(255, 217, 0);
+        }
+
+      .info_container{
+        color: rgb(136, 255, 0);
+      }
+      .D{
+        color: rgb(211, 50, 50);
+      }
+      .T{
+        color: rgb(3, 202, 228);
+      }
+      .P{
+        color: rgb(211, 50, 50);
+      }
+
+  </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1><center><span>COLD DRINKS DETECTION AND COUNTING TOOLS</span></center></h1>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input
+        class="custom-file-upload"
+        type="file"
+        accept="image"
+        name="image"
+        id="file"
+      />
+      <button class="compress_image" type="submit" id="submitBtn">
+        <b>DETECTION</b>
+      </button>
+      <div class="status">
+        <p id="message">{{ message }}</p>
+      </div>
+    </form>
+
+    <div class="wrapper">
+      <img
+        src="{% if image_url %}{{ image_url }}{% else %}{% static 'images/default.png' %}{% endif %}"
+        alt="Compressed Image"
+        width="400px"
+      />
+
+
+      <div class="info_container">
+        <ul>
+        <div class="D">
+            <h2><center><u>Detection Result</u></center></h2>
+        </div>
+        <div class="T">
+          <h4><br><center>Total Products Detected : <span class="name">{{ total_product_count }}</span></center><br></h4>
+        </div>
+        <div class="P">
+          <h2><center><u>Products</u></center></h2>
+          <li><br><center><span class="type">{{prediction|linebreaksbr }}</span></center><br></li>
+        </div>
+        </ul>
+      </div>
+    </div>
+
+    <div class="header">
+      <p><h4>© Tareq Aziz Uday 2023, all rights reserved.</h4></p>
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
